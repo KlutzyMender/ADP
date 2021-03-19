@@ -7,11 +7,15 @@ html, body {
 
 body {
     height: 100%;
-    background-color: #FFCC00;
+    background-color: lightgray;
 }
 
 #myCanvas
 {
+  position: fixed;
+  top: 0px;
+  left: 0px;
   height: 100%;
+  width: 17%;
   background-color: orange;
 }
