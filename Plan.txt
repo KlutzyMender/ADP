@@ -1,10 +1,29 @@
 Main Project Goal:
-Create a calendar that is accessible from anywhere and to creat multiple control devices to creat the events for the calendar.
+Create a calendar that is accessible from anywhere and to creat multiple control
+devices to creat the events for the calendar.
 
 Ideas:
 	1. Creat a webpage to store the calendar and have the control devices send
   the event data to the website.
-		a. In the testing part I will creat a local host and port forwarding but when it is ready to launch I will creat an actual website.
-		b. The creat the events I want to creat a portable display box made from an Arduino, LCD display and a control dial to select and change the event details.
-		c. The user will input the event and then it will be saved on an SD card so if the Arduino is turned off it will still be there. Once the control box is online (connects to WIFI) it will upload the event to the website.
-		d. The website will then get the information and add the event to the calendar.
+		a. In the testing part I will creat a local host and port forwarding but
+      when it is ready to launch I will creat an actual website.
+		b. The creat the events I want to creat a portable display box made from
+      an Arduino, LCD display and a control dial to select and change the event
+      details.
+		c. The user will input the event and then it will be saved on an SD card
+      so if the Arduino is turned off it will still be there. Once the control
+      box is online (connects to WIFI) it will upload the event to the website.
+		d. The website will then get the information and add the event to the
+      calendar.
+
+In-depth plan:
+  website:
+    Creat a website that will combine all of the great things from other
+    calendars like google and outlook. As well to creat a back end to resive
+    data from the controllers.
+
+    Sidebar:
+      The sidebar will be the main control center for the website.
+      The main features on the sidebar:
+        1. able to change from month, week and day view.
+        2. 
