@@ -1,7 +1,7 @@
 
-function drawLine(id)
+function drawLine()
 {
-  var c = document.getElementById(id);
+  var c = Website.getElementById("myCanvas");
   var ctx = c.getContext("2d");
   ctx.moveTo(0, 0);
   ctx.lineTo(200, 100);
