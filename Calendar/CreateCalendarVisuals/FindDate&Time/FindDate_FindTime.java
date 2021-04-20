@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class FindDate
+public class FindDate_FindTime
 {
 public static void main(String[] args)
 {
