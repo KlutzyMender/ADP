@@ -16,6 +16,8 @@ Ideas:
 		d. The website will then get the information and add the event to the
       calendar.
 
+	2. Creat a java program with a full calendar
+
 In-depth plan:
   website:
     Creat a website that will combine all of the great things from other
@@ -26,4 +28,4 @@ In-depth plan:
       The sidebar will be the main control center for the website.
       The main features on the sidebar:
         1. able to change from month, week and day view.
-        2. 
+        2.
