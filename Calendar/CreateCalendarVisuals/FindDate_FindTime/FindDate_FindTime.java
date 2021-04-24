@@ -1,5 +1,3 @@
-package A;
-
 import java.time.LocalDate;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -14,7 +12,7 @@ public static void main(String[] args)
         System.out.println("Date: " + date + "; Time: " + time);
 }
 
-public static int dayOfWeek(int year, int month, int day)
+public int dayOfWeek(int year, int month, int day)
 {
         LocalDate date = LocalDate.of(year, month, day);
 
