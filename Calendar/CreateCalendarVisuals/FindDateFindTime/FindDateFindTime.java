@@ -1,8 +1,10 @@
+package finddatefindtime;
+
 import java.time.LocalDate;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
-public class FindDate_FindTime
+public class FindDateFindTime
 {
 public static void main(String[] args)
 {

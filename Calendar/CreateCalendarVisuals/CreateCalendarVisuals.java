@@ -1,10 +1,10 @@
-import FindDate_FindTime.FindDate_FindTime;
+import finddatefindtime.FindDateFindTime;
 
 public class CreateCalendarVisuals
 {
 public static void main(String[] args)
 {
-        FindDate_FindTime d = new FindDate_FindTime();
+        FindDateFindTime d = new FindDateFindTime();
         System.out.println(d.dayOfWeek(2021, 04, 24));
 }
 }
