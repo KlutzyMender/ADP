@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 
 public class CreateCalendarVisuals extends Canvas
 {
+  public final int calendarStarting_X_Location = 100;
+  public final int calendarStarting_Y_Location = 100;
+
   public static void main(String[] args)
   {
     //starts the canvas
@@ -17,21 +20,21 @@ public class CreateCalendarVisuals extends Canvas
     frame.pack();
     frame.setVisible(true);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  }
+  } // end of main function
 
   public void paint(Graphics g)
   {
     makeCalendar(g);
     //drawDateRect(0, 0, 150, 150, 0, Color.BLUE,  g);
     //drawDateRect(150, 0, 150, 150, 1, Color.GRAY,  g);
-  }
+  } // end of paint finction
 
   // function to draw a box for the date
   public void makeCalendar(Graphics g)
   {
     // variables for the boxes...
-    int x = 0; // creats the variable to store the x location of the day boxes on the calendar
-    int y = 0; // creats the variable to store the y location of the day boxes on the calendar
+    int x = calendarStarting_X_Location; // creats the variable to store the x location of the day boxes on the calendar
+    int y = calendarStarting_Y_Location; // creats the variable to store the y location of the day boxes on the calendar
     int width = 110; // creats the variable to store the width of the day boxes on the calendar
     int height = 110; // creats the variable to store the height of the day boxes on the calendar
 
@@ -62,7 +65,7 @@ public class CreateCalendarVisuals extends Canvas
         dayofmonth++;
         startOfMonth++;
       }
-      x = 0;
+      x = calendarStarting_X_Location;
       y += height;
 
       // starts the loop to wright all the days of month
@@ -103,19 +106,23 @@ public class CreateCalendarVisuals extends Canvas
           }
         }
         // starts a new line for the new week
-        x = 0;
+        x = calendarStarting_X_Location;
         y += height;
       }
     //}
 
-  } // end of function
+  } // end of makeCalendar function
 
   public void drawDateRect(int x, int y, int width, int height, int day, Color boxColor, Graphics g)
   {
     int fontSize = 25;
 
-    String dayString = "";
-    dayString += day;
+    String dayString = " ";
+
+    if(day != 0)
+    {
+      dayString += day;
+    }
 
     g.setColor(boxColor); // changes the color
     // creates a rect to show the date
@@ -133,5 +140,5 @@ public class CreateCalendarVisuals extends Canvas
     {
       g.drawString(dayString, x + width - fontSize, y + fontSize); // prints the day of the month
     }
-  }
+  } // end of drawDateRect function
 } // end of class
