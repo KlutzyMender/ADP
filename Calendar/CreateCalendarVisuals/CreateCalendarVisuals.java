@@ -1,5 +1,4 @@
 import finddatefindtime.FindDateFindTime;
-import mousebuttonrecon.MouseButtonRecon;
 // import classes need to draw in java
 import java.awt.Canvas;
 import java.awt.Graphics;
@@ -13,6 +12,9 @@ import java.util.ArrayList; // import the ArrayList class
 
 public class CreateCalendarVisuals extends Canvas implements MouseListener
 {
+  FindDateFindTime d = new FindDateFindTime(); // starts my FindDateFindTime class
+
+  public int calendarDisplayedMonth = d.currentMonth();
 
   public final int calendarStarting_X_Location = 100;
   public final int calendarStarting_Y_Location = 100;
@@ -45,9 +47,7 @@ public class CreateCalendarVisuals extends Canvas implements MouseListener
   public void paint(Graphics g)
   {
     // FindDateFindTime class...
-    FindDateFindTime d = new FindDateFindTime(); // starts my FindDateFindTime class
-
-    makeCalendar(d.currentMonth(), g);
+    makeCalendar(calendarDisplayedMonth, g);
     makeButton(0,0,100,50,Color.RED, g);
     makeButton(100,0,100,50,Color.BLUE, g);
 
@@ -182,8 +182,7 @@ public class CreateCalendarVisuals extends Canvas implements MouseListener
   public void mouseClicked(MouseEvent event)
   {
     Graphics g = getGraphics();
-    FindDateFindTime d = new FindDateFindTime(); // starts my FindDateFindTime class
-    
+
     for(int i = 0; i < xArray.size(); i++)
     {
       double mouseX = MouseInfo.getPointerInfo().getLocation().x;
@@ -196,15 +195,15 @@ public class CreateCalendarVisuals extends Canvas implements MouseListener
       {
         if(mouseY >= yArray.get(i) && mouseY <= yArray.get(i) + heightArray.get(i))
         {
-          g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+          g.clearRect(0, 100, canvas.getWidth(), canvas.getHeight());
           if(i == 0)
           {
-            makeCalendar(d.currentMonth() -1, g);
+            makeCalendar(calendarDisplayedMonth -= 1, g);
             break;
           }
           if(i == 1)
           {
-            makeCalendar(d.currentMonth() + 1, g);
+            makeCalendar(calendarDisplayedMonth += 1, g);
             break;
           }
         }
