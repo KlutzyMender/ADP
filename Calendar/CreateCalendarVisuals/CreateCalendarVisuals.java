@@ -1,36 +1,64 @@
 import finddatefindtime.FindDateFindTime;
+import mousebuttonrecon.MouseButtonRecon;
 // import classes need to draw in java
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.*;
 import javax.swing.JFrame;
 
-public class CreateCalendarVisuals extends Canvas
+import java.awt.*;
+import java.awt.event.*;
+
+import java.util.ArrayList; // import the ArrayList class
+
+public class CreateCalendarVisuals extends Canvas implements MouseListener
 {
+
   public final int calendarStarting_X_Location = 100;
   public final int calendarStarting_Y_Location = 100;
+
+  ArrayList<Integer> xArray = new ArrayList<Integer>(); // Create an ArrayList object
+  ArrayList<Integer> yArray = new ArrayList<Integer>(); // Create an ArrayList object
+  ArrayList<Integer> widthArray = new ArrayList<Integer>(); // Create an ArrayList object
+  ArrayList<Integer> heightArray = new ArrayList<Integer>(); // Create an ArrayList object
+
+  CreateCalendarVisuals()
+  {
+    addMouseListener(this);
+  }
+
+  static JFrame frame = new JFrame("My Drawing");
+  static Canvas canvas = new CreateCalendarVisuals();
 
   public static void main(String[] args)
   {
     //starts the canvas
-    JFrame frame = new JFrame("My Drawing");
-    Canvas canvas = new CreateCalendarVisuals();
-    canvas.setSize(1050, 750);
+    canvas.setSize(1050, 250);
     frame.add(canvas);
     frame.pack();
     frame.setVisible(true);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    new CreateCalendarVisuals();
   } // end of main function
 
   public void paint(Graphics g)
   {
-    makeCalendar(g);
-    //drawDateRect(0, 0, 150, 150, 0, Color.BLUE,  g);
-    //drawDateRect(150, 0, 150, 150, 1, Color.GRAY,  g);
+    // FindDateFindTime class...
+    FindDateFindTime d = new FindDateFindTime(); // starts my FindDateFindTime class
+
+    makeCalendar(d.currentMonth(), g);
+    makeButton(0,0,100,50,Color.RED, g);
+    makeButton(100,0,100,50,Color.BLUE, g);
+
+    for(int i = 0; i < xArray.size(); i++)
+    {
+      System.out.println(xArray.get(i));
+    }
   } // end of paint finction
 
   // function to draw a box for the date
-  public void makeCalendar(Graphics g)
+  public void makeCalendar(int month, Graphics g)
   {
     // variables for the boxes...
     int x = calendarStarting_X_Location; // creats the variable to store the x location of the day boxes on the calendar
@@ -41,10 +69,9 @@ public class CreateCalendarVisuals extends Canvas
     // FindDateFindTime class...
     FindDateFindTime d = new FindDateFindTime(); // starts my FindDateFindTime class
 
-
     //for(int i = 1; i <= 12; i++)
     //{
-      int startOfMonth = d.dayOfWeek(2021, 5, 1); // find the start of the month
+      int startOfMonth = d.dayOfWeek(2021, month, 1); // find the start of the month
       int dayofmonth = 1; // variable to store the day of the month to be printed
 
       //prints 0 for all the days leading up to the first of the month
@@ -76,7 +103,7 @@ public class CreateCalendarVisuals extends Canvas
         {
           // if the day of month is bigger then the number of days in a month
           // then print 00
-          if(dayofmonth > d.lengthOfMonth(2021, 5))
+          if(dayofmonth > d.lengthOfMonth(2021, month))
           {
             //prints 00 to represent the days that are not in that month
             drawDateRect(x, y, width, height, 0, Color.GRAY,  g);
@@ -109,19 +136,16 @@ public class CreateCalendarVisuals extends Canvas
         x = calendarStarting_X_Location;
         y += height;
       }
-    //}
-
   } // end of makeCalendar function
 
   public void drawDateRect(int x, int y, int width, int height, int day, Color boxColor, Graphics g)
   {
-    int fontSize = 25;
+    int fontSize = 25; // sents the font size for the text
+    String dayString = " "; // creats a String to store the day because you can't print int's
 
-    String dayString = " ";
-
-    if(day != 0)
+    if(day != 0) // if day == 0 then that is not a date in the month so we print nothing
     {
-      dayString += day;
+      dayString += day; // add the day to a String if day is > 0
     }
 
     g.setColor(boxColor); // changes the color
@@ -141,4 +165,54 @@ public class CreateCalendarVisuals extends Canvas
       g.drawString(dayString, x + width - fontSize, y + fontSize); // prints the day of the month
     }
   } // end of drawDateRect function
+
+  public void makeButton(int x, int y, int width, int height, Color boxColor, Graphics g)
+  {
+    xArray.add(x);
+    yArray.add(y);
+    widthArray.add(width);
+    heightArray.add(height);
+
+    g.setColor(boxColor); // changes the color
+    // creates a rect to show the date
+    g.fillRect(x, y, width, height); // starts at location x and y and has a width of width
+  }
+
+
+  public void mouseClicked(MouseEvent event)
+  {
+    Graphics g = getGraphics();
+    FindDateFindTime d = new FindDateFindTime(); // starts my FindDateFindTime class
+    
+    for(int i = 0; i < xArray.size(); i++)
+    {
+      double mouseX = MouseInfo.getPointerInfo().getLocation().x;
+      double mouseY = MouseInfo.getPointerInfo().getLocation().y;
+
+      // System.out.println("mouse x: " + mouseX);
+      // System.out.println("mouse y: " + mouseY);
+
+      if(mouseX >= xArray.get(i) && mouseX <= xArray.get(i) + widthArray.get(i))
+      {
+        if(mouseY >= yArray.get(i) && mouseY <= yArray.get(i) + heightArray.get(i))
+        {
+          g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+          if(i == 0)
+          {
+            makeCalendar(d.currentMonth() -1, g);
+            break;
+          }
+          if(i == 1)
+          {
+            makeCalendar(d.currentMonth() + 1, g);
+            break;
+          }
+        }
+      }
+    }
+  }
+  public void mousePressed(MouseEvent e){}
+  public void mouseEntered(MouseEvent e){}
+  public void mouseExited(MouseEvent e){}
+  public void mouseReleased(MouseEvent e){}
 } // end of class
