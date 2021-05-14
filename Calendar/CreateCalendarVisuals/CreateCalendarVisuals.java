@@ -36,7 +36,7 @@ public class CreateCalendarVisuals extends Canvas implements MouseListener
   public static void main(String[] args)
   {
     //starts the canvas
-    canvas.setSize(1050, 250);
+    canvas.setSize(1050, 750);
     frame.add(canvas);
     frame.pack();
     frame.setVisible(true);
@@ -49,8 +49,7 @@ public class CreateCalendarVisuals extends Canvas implements MouseListener
   {
     // FindDateFindTime class...
     makeCalendar(calendarDisplayedMonth, calendarDisplayedYear, g);
-    makeButton(0,0,100,50,Color.RED, g);
-    makeButton(100,0,100,50,Color.BLUE, g);
+    makeTitleBar();
   } // end of paint finction
 
   // function to draw a box for the date
@@ -162,22 +161,44 @@ public class CreateCalendarVisuals extends Canvas implements MouseListener
     }
   } // end of drawDateRect function
 
-  public void makeButton(int x, int y, int width, int height, Color boxColor, Graphics g)
+  public void makeTitleBar()
   {
+    Graphics g = getGraphics(); // gets the Graphics class to be able to draw
+
+    g.setColor(Color.LIGHT_GRAY);
+    g.fillRect(0, 0, canvas.getWidth(), 100);
+
+    g.setColor(Color.BLACK);
+    g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+    g.drawString(d.MonthAsString(calendarDisplayedMonth), 485-d.MonthAsString(calendarDisplayedMonth).length(), 80);
+
+    makeButton(0, 0, 100, 50, Color.GRAY, "<---");
+    makeButton(101, 0, 100, 50, Color.GRAY, "--->");
+  }
+
+  public void makeButton(int x, int y, int width, int height,  Color boxColor, String symbole)
+  {
+    Graphics g = getGraphics(); // gets the Graphics class to be able to draw
+    g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+
     xArray.add(x);
     yArray.add(y);
     widthArray.add(width);
     heightArray.add(height);
-
+    g.setColor(Color.BLACK);
+    g.drawRect(x, y, width, height);
     g.setColor(boxColor); // changes the color
     // creates a rect to show the date
     g.fillRect(x, y, width, height); // starts at location x and y and has a width of width
+    g.setColor(Color.BLACK);
+    g.drawString(symbole, x + width/2 - symbole.length(), height /2 +10);
   } // end of makeButton class
 
   // this function will run everytime the mouse is clicked
   public void mouseClicked(MouseEvent event)
   {
     Graphics g = getGraphics(); // gets the Graphics class to be able to draw
+
 
     //loops through all the buttons that we have made
     for(int i = 0; i < xArray.size(); i++)
@@ -192,7 +213,7 @@ public class CreateCalendarVisuals extends Canvas implements MouseListener
         if(mouseY >= yArray.get(i) && mouseY <= yArray.get(i) + 2*heightArray.get(i))
         {
           // clear the screen below y = 50
-          g.clearRect(0, 50, canvas.getWidth(), canvas.getHeight());
+          g.clearRect(0, 100, canvas.getWidth(), canvas.getHeight());
           // if button 1
           if(i == 0)
           {
@@ -206,6 +227,7 @@ public class CreateCalendarVisuals extends Canvas implements MouseListener
             System.out.println(calendarDisplayedMonth);
             // remakes the calendar but one month back
             makeCalendar(calendarDisplayedMonth, calendarDisplayedYear, g);
+            makeTitleBar();
             break; // stops the loop
           }
           // if button 2
@@ -222,13 +244,14 @@ public class CreateCalendarVisuals extends Canvas implements MouseListener
             System.out.println(calendarDisplayedMonth);
             // remakes the calendar but one month forward
             makeCalendar(calendarDisplayedMonth, calendarDisplayedYear, g);
+            makeTitleBar();
             break; // stops the loop
           }
         }
       }
     }
   }
-  // i only need the mouseClicked function but you have to put them all in inorder to work
+  // I only need the mouseClicked function but you have to put them all in inorder to work
   // this function will run everytime the mouse is pressed
   public void mousePressed(MouseEvent e){}
   // this function will run everytime the mouse has entered

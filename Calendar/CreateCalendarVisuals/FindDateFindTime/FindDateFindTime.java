@@ -10,6 +10,7 @@ import java.time.LocalTime; // import local time to find time
 //create a class called FindDateFindTime
 public class FindDateFindTime
 {
+  String[] monthsOfYear = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
   //store the local date class on the variable date
   LocalDate date = LocalDate.now(); // .now finds current date
 
@@ -23,6 +24,12 @@ public class FindDateFindTime
   public int currentMonth()
   {
     return date.getMonthValue(); // returns the curent month
+  }
+
+  public String MonthAsString(int month)
+  {
+    month -= 1;
+    return monthsOfYear[month];
   }
 
   //class to find the currentDay
