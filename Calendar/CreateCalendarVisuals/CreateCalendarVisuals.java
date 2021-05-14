@@ -213,7 +213,7 @@ public class CreateCalendarVisuals extends Canvas implements MouseListener
         if(mouseY >= yArray.get(i) && mouseY <= yArray.get(i) + 2*heightArray.get(i))
         {
           // clear the screen below y = 50
-          g.clearRect(0, 100, canvas.getWidth(), canvas.getHeight());
+          g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
           // if button 1
           if(i == 0)
           {
